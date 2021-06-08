@@ -1,0 +1,105 @@
+#+OPTIONS: num:nil toc:nil
+#+REVEAL_THEME: simple
+#+REVEAL_EXTRA_CSS: ./css/my_style.css
+#+REVEAL_EXTRA_CSS: ./plugin/highlight/zenburn.css
+#+REVEAL_INIT_OPTIONS: width:1920, height:1080
+#+REVEAL_PLUGINS: (highlight, zoom)
+#+REVEAL_ROOT: ./
+#+REVEAL_TITLE_SLIDE: <h1 class="title">%t</h1>
+#+REVEAL_TITLE_SLIDE: <img src="./img/immip_logo.png" width="350px"></img>
+#+REVEAL_TITLE_SLIDE: <h2 class="author">Rafael Palomar (Oslo University Hospital and NTNU)</h1>
+#+REVEAL_TITLE_SLIDE: <h2 class="author">Juan Gómez Luna (ETH Zürich)</h1>
+#+REVEAL_TITLE_SLIDE: <h3 class="date">10/06/2021</h1>
+#+Title: In-Memory Medical Image Processing
+#+Author: Rafael Palomar (Oslo University Hospital and NTNU)%%<br/>  Juan Gómez Luna (ETH Zürich)
+
+
+* Executive Summary
+
+- Healthcare providers are in a continuous search for increased image resolutions.
+
+- **Problem**
+  - Medical applications (MAs) need to cope with the processing of a growing amount of data.
+
+- **Observations**
+  - Data movement bottleneck particularly important in MAs.
+  - /In-memory processing/ (IMP) emerges as a promising way to alleviate this bottleneck.
+
+- **Idea**
+  - Application of IMP to fundamental operations and algorithms widely used in MAs.
+
+- **Objectives**
+  - Establishing of a framework for evaluation of medical image processing algorithms using IMP.
+  - Benchmarking of selected fundamental operations and algorithms.
+
+* Medical Data
+
+** Medical Images
+
+#+ATTR_HTML: :width 1800
+[[./img/image_grids.png]]
+
+** Microscopy Images
+
+30,000 x 30,000 x 25 x 36 (uint16) ~ 1TB
+
+#+ATTR_HTML: :width 1400
+[[./img/microscopy_images.png]]
+#+REVEAL_HTML: <div class="footnote">
+Lymphocytes in breast cancer liver metastasis biopsy
+https://minerva-story-htan-ohsu-demo.surge.sh/#s=2#w=0#g=0#m=-1#a=-100_-100#v=0.4425_0.8377_0.4444#o=-100_-100_1_1#p=Q
+#+REVEAL_HTML: </div>
+
+* The MIPBenchmark Framework
+
+** The MIPBenchmark Framework
+
+- Framework for benchmarking of medical image processing algorithms.
+- CPU / GPU (OpenCL) / DPU support.
+- Declarative API.
+- Generation of binaries and tests spanning the testing parameter space:
+  + Compilation definitions and input parameters
+
+#+ATTR_HTML: :width 1200
+[[./img/miabenchmark.png]]
+
+* Algorithms and Applications
+
+** Algorithms and Applications
+
+| Algorithm             | CPU | GPU | DPU | Applications            |
+|-----------------------+-----+-----+-----+-------------------------|
+| Voxel counting        | OK  | OK  | WIP | Volume computation      |
+| Image reduction       | OK  | OK  | WIP | Image statistics        |
+| Binary thresholding   | OK  | OK  | WIP | Image segmentation      |
+| Convolution           | X   | X   | X   | Image filtering         |
+| Image interpolation   | X   | X   | X   | Image resampling        |
+| Seeded region growing | X   | X   | X   | Segmentation            |
+| Marching cubes        | X   | X   | X   | 3D model reconstruction |
+| Histogram computation | X   | X   | X   | Image analysis          |
+|-----------------------+-----+-----+-----+-------------------------|
+
+** COMMENT Medical Image Data: Why?
+
+#+ATTR_HTML: :width 1600
+[[./img/image_details_1.png]]
+
+#+REVEAL_HTML: <div class="footnote">
+Hata /et. al/. Effect of Matrix Size on the Image Quality of Ultra-high-resolution CT of the Lung. Academic Radiology. 2018.
+#+REVEAL_HTML: </div>
+
+** COMMENT Medical Image Data: Why?
+
+#+ATTR_HTML: :width 1600
+[[./img/image_details_2.png]]
+
+#+REVEAL_HTML: <div class="footnote">
+Hata /et. al/. Effect of Matrix Size on the Image Quality of Ultra-high-resolution CT of the Lung. Academic Radiology. 2018.
+#+REVEAL_HTML: </div>
+
+** COMMENT Medical Image Data: What? How Much?
+:PROPERTIES:
+:reveal_background_iframe: https://minerva-story-htan-ohsu-demo.surge.sh/#s=2#w=0#g=0#m=-1#a=-100_-100#v=0.4425_0.8377_0.4444#o=-100_-100_1_1#p=Q
+:reveal_extra_attr: display:none;
+:END:
+
